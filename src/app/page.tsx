@@ -16,9 +16,9 @@ export default function Home() {
       <StatsSection />
       <ClientsSection />
       <SpecializationsSection />
+      <TestimonialsSection />
       <HowItWorksSection />
       <FAQSection />
-      <TestimonialsSection />
       <Footer />
     </main>
   );

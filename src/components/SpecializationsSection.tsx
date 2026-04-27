@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Lightbulb, Brain, Users, BarChart3, Settings, Globe, 
   Banknote, MonitorCheck, MonitorX, GraduationCap, Briefcase 
@@ -194,6 +195,20 @@ export default function SpecializationsSection() {
 function CourseSegmentationSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const handleDragEnd = (event: any, info: any) => {
+    const swipeThreshold = 50;
+    const velocityThreshold = 500;
+    
+    // Left Swipe (finger moves left) -> Next
+    if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {
+      if (activeIndex < SEGMENTS.length - 1) setActiveIndex(activeIndex + 1);
+    } 
+    // Right Swipe (finger moves right) -> Prev
+    else if (info.offset.x > swipeThreshold || info.velocity.x > velocityThreshold) {
+      if (activeIndex > 0) setActiveIndex(activeIndex - 1);
+    }
+  };
+
   return (
     <section className="py-12 md:py-20 bg-white overflow-hidden">
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -221,22 +236,36 @@ function CourseSegmentationSlider() {
           ))}
         </div>
 
-        {/* Mobile View: Slider */}
-        <div className="lg:hidden mb-10">
-          <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
+        {/* Mobile View: Continuous Snap Slider (1:1 Parity) */}
+        <div className="lg:hidden mb-10 overflow-hidden">
+          <motion.div
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.6}
+            onDragEnd={handleDragEnd}
+            animate={{ x: `-${activeIndex * 100}%` }}
+            transition={{ type: "spring", damping: 30, stiffness: 150 }}
+            className="flex cursor-grab active:cursor-grabbing touch-pan-y" 
+          >
             {SEGMENTS.map((seg, i) => (
-              <div key={i} className="w-full flex-shrink-0 px-4">
-                <div className="bg-white rounded-2xl shadow-[0_8px_30px_-10px_rgba(0,0,0,0.12)] overflow-hidden flex flex-col border border-gray-100/50 h-full">
-                  <div className="relative h-64 w-full">
-                    <Image src={seg.img} alt={seg.title} fill className="object-cover" />
+              <div key={i} className="w-full flex-shrink-0 px-8">
+                <div className="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col border border-gray-100/50 h-full">
+                  <div className="relative h-60 w-full">
+                    <Image 
+                      src={seg.img} 
+                      alt={seg.title} 
+                      fill 
+                      className="object-cover" 
+                      priority={i === 0} 
+                    />
                   </div>
-                  <div className="p-10 text-center flex-1 bg-white">
-                    <h3 className="text-[#1a73e8] font-bold text-[22px] md:text-2xl">{seg.title}</h3>
+                  <div className="py-8 px-4 text-center bg-white">
+                    <h3 className="text-[#1a73e8] font-bold text-2xl tracking-wide">{seg.title}</h3>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Pagination Dots */}

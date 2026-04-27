@@ -1,38 +1,52 @@
 "use client";
 
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
 
 const TESTIMONIALS = [
   {
-    review:
-      "We would like to thank Accredian for the wonderful support and the beautiful journey. The team turned our vision into reality with unparalleled dedication, service, and expertise throughout the entire process.",
-    logo: "/images/adp.svg",
-    name: "ADP",
-  },
-    {
-    review:
-      "Accredian's commitment to excellence is unmatched. They consistently go the extra mile to ensure our needs are met and exceeded, providing reliable support and high-quality service every step of the way.",
-    logo: "/images/bayer.svg",
-    name: "Bayer",
+    id: 1,
+    logo: "https://upload.wikimedia.org/wikipedia/commons/f/f7/Bayer_logo.svg",
+    quote: "Accredian's commitment to excellence is unmatched. They consistently go the extra mile to ensure our needs are met and exceeded, providing reliable support and high-quality service every step of the way.",
   },
   {
-    review:
-      "Working with Accredian has been a transformative experience for our team. Their tailored approach to training and deep industry knowledge helped us bridge critical skill gaps and drive measurable business impact.",
-    logo: "/images/rel.png",
-    name: "Reliance",
+    id: 2,
+    logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg",
+    quote: "The technical expertise and professional approach of the Accredian team have been instrumental in our digital transformation journey. Their tailored programs are truly world-class.",
+  },
+  {
+    id: 3,
+    logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+    quote: "Working with Accredian has been a game-changer for our talent development. Their focus on emerging technologies perfectly aligns with our innovation goals.",
   },
 ];
 
 export default function TestimonialsSection() {
-  const [activeIndex, setActiveIndex] = useState(1); // Default to middle card for visual balance
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleDragEnd = (event: any, info: any) => {
+    const swipeThreshold = 50;
+    if (info.offset.x < -swipeThreshold) {
+      if (activeIndex < TESTIMONIALS.length - 1) setActiveIndex(activeIndex + 1);
+    } else if (info.offset.x > swipeThreshold) {
+      if (activeIndex > 0) setActiveIndex(activeIndex - 1);
+    }
+  };
 
   return (
-    <section id="testimonials" className="pt-8 pb-16 bg-white overflow-hidden">
-      <div className="max-w-[1250px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 md:mb-16">
-          <h2 className="text-[1.75rem] md:text-[2.5rem] font-bold text-gray-900 mb-3">
+    <section className="py-16 md:py-24 bg-white overflow-hidden">
+      <div className="max-w-[1320px] mx-auto px-6">
+        {/* Enquire Now Button */}
+        <div className="flex justify-center mb-16 md:mb-20">
+          <button className="bg-[#1a73e8] text-white px-10 py-3.5 rounded-lg font-bold text-lg shadow-[0_8px_25px_rgba(26,115,232,0.3)] transition-transform hover:scale-105">
+            Enquire Now
+          </button>
+        </div>
+
+        {/* Section Header */}
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-[1.85rem] md:text-[2.5rem] font-bold text-gray-900 mb-2">
             Testimonials from <span className="text-[#1a73e8]">Our Partners</span>
           </h2>
           <p className="text-gray-500 font-medium text-base md:text-lg">
@@ -41,62 +55,61 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Desktop View: Grid */}
-        <div className="hidden lg:grid grid-cols-3 gap-8 mb-12">
+        <div className="hidden lg:grid grid-cols-3 gap-8">
           {TESTIMONIALS.map((t) => (
-            <div
-              key={t.name}
-              className="bg-white rounded-xl p-10 shadow-sm border border-gray-200 flex flex-col hover:shadow-md transition-shadow"
+            <div 
+              key={t.id}
+              className="bg-white rounded-[2rem] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.04)] p-10 flex flex-col h-full"
             >
-              <div className="w-16 h-10 relative mb-8">
-                <Image
-                  src={t.logo}
-                  alt={t.name}
-                  fill
-                  className="object-contain object-left"
-                />
+              <div className="w-16 h-16 rounded-full border border-gray-100 flex items-center justify-center p-3 mb-8 shadow-sm">
+                <img src={t.logo} alt="Partner Logo" className="w-full h-full object-contain" />
               </div>
-              <p className="text-gray-800 text-[16px] font-medium leading-relaxed italic">
-                &quot;{t.review}&quot;
+              <p className="text-gray-700 text-lg leading-relaxed italic">
+                "{t.quote}"
               </p>
             </div>
           ))}
         </div>
 
-        {/* Mobile View: Swappable Cards */}
-        <div className="lg:hidden mb-12 relative h-auto">
-          <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
-            {TESTIMONIALS.map((t, i) => (
-              <div key={t.name} className="w-full flex-shrink-0 px-2">
-                <div className="bg-white rounded-xl p-8 md:p-10 shadow-sm border border-gray-200 h-full flex flex-col">
-                  <div className="w-16 h-10 relative mb-8">
-                    <Image
-                      src={t.logo}
-                      alt={t.name}
-                      fill
-                      className="object-contain object-left"
-                    />
+        {/* Mobile View: Slider */}
+        <div className="lg:hidden relative min-h-[350px]">
+          <div className="overflow-hidden px-2">
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={handleDragEnd}
+              animate={{ x: `-${activeIndex * 100}%` }}
+              transition={{ type: "spring", damping: 30, stiffness: 150 }}
+              className="flex cursor-grab active:cursor-grabbing"
+            >
+              {TESTIMONIALS.map((t) => (
+                <div key={t.id} className="w-full flex-shrink-0 px-4">
+                  <div className="bg-white rounded-[2rem] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.04)] p-8 md:p-10 flex flex-col min-h-[300px]">
+                    <div className="w-14 h-14 rounded-full border border-gray-100 flex items-center justify-center p-3 mb-6 shadow-sm">
+                      <img src={t.logo} alt="Partner Logo" className="w-full h-full object-contain" />
+                    </div>
+                    <p className="text-gray-700 text-[1.05rem] md:text-lg leading-relaxed">
+                      "{t.quote}"
+                    </p>
                   </div>
-                  <p className="text-gray-800 text-[15px] md:text-[16px] font-medium leading-relaxed italic">
-                    &quot;{t.review}&quot;
-                  </p>
                 </div>
-              </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Pagination Dots */}
+          <div className="flex justify-center gap-2 mt-10">
+            {TESTIMONIALS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  activeIndex === i ? "bg-[#1a73e8] w-6" : "bg-gray-200"
+                }`}
+              />
             ))}
           </div>
-        </div>
-
-        {/* Pagination Dots */}
-        <div className="flex justify-center gap-3">
-          {TESTIMONIALS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIndex(i)}
-              className={`w-2.5 h-2.5 rounded-full shadow-sm transition-all duration-300 ${
-                activeIndex === i ? "bg-[#1a73e8]" : "bg-gray-200"
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
         </div>
       </div>
     </section>
