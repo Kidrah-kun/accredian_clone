@@ -83,31 +83,37 @@ export default function FAQSection() {
   return (
     <section id="faqs" className="py-12 md:py-24 bg-white">
       <div className="max-w-[1250px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-16">
-          <h2 className="text-[2.25rem] font-bold text-gray-900">
+        <div className="mb-10 md:mb-16">
+          <h2 className="text-[1.75rem] md:text-[2.5rem] font-bold text-gray-900">
             Frequently Asked <span className="text-[#1a73e8]">Questions</span>
           </h2>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-12 lg:gap-16">
-          {/* Left Column: Tabs */}
-          <div className="md:w-[280px] shrink-0 flex flex-col gap-5">
-            {FAQ_CATEGORIES.map((cat) => {
-              const isActive = activeTab === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveTab(cat.id)}
-                  className={`py-4 px-6 rounded-lg text-center font-bold text-[16px] transition-all border-2 ${
-                    isActive
-                      ? "bg-white border-transparent text-[#1a73e8] shadow-[0_12px_30px_-10px_rgba(0,0,0,0.15)] ring-0"
-                      : "bg-white border-gray-300 text-gray-500 hover:border-gray-400 shadow-none"
-                  }`}
-                >
-                  {cat.category}
-                </button>
-              );
-            })}
+        <div className="flex flex-col md:flex-row gap-8 lg:gap-16">
+          {/* Left Column: Tabs - Horizontal Scroll on Mobile, Vertical on Desktop */}
+          <div className="relative md:w-[280px] shrink-0">
+            <div className="flex flex-row md:flex-col gap-3 md:gap-5 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 scrollbar-hide">
+              {FAQ_CATEGORIES.map((cat) => {
+                const isActive = activeTab === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveTab(cat.id)}
+                    className={`py-3.5 px-6 rounded-lg text-center font-bold text-[15px] md:text-[16px] transition-all border whitespace-nowrap ${
+                      isActive
+                        ? "bg-white border-[#1a73e8] text-[#1a73e8] shadow-sm"
+                        : "bg-white border-gray-200 text-gray-500 hover:border-gray-300 shadow-none"
+                    }`}
+                  >
+                    {cat.category}
+                  </button>
+                );
+              })}
+            </div>
+            {/* Mobile Scroll Hint: Small Chevron */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 md:hidden pointer-events-none bg-gradient-to-l from-white via-white/80 to-transparent w-12 h-10 flex items-center justify-end pr-1">
+              <ChevronDown size={18} className="-rotate-90 text-gray-400" />
+            </div>
           </div>
 
           {/* Right Column: Accordions */}
@@ -118,8 +124,8 @@ export default function FAQSection() {
           </div>
         </div>
 
-        <div className="flex justify-center mt-16">
-          <button className="bg-[#1a73e8] hover:bg-blue-700 text-white font-bold py-3.5 px-10 rounded-lg transition-colors shadow-md">
+        <div className="flex justify-center mt-12 md:mt-16">
+          <button className="bg-[#1a73e8] hover:bg-blue-700 text-white font-bold py-3.5 px-12 rounded-lg transition-all shadow-[0_8px_20px_-6px_rgba(26,115,232,0.4)] hover:shadow-[0_12px_25px_-5px_rgba(26,115,232,0.5)] active:scale-95 text-[15.5px]">
             Enquire Now
           </button>
         </div>

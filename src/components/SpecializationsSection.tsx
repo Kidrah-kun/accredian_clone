@@ -1,14 +1,20 @@
+"use client";
+
 import Image from "next/image";
-import { Lightbulb, BrainCircuit, Users, BarChart3, Settings, Globe, CircleDollarSign, MonitorCheck, MonitorX, GraduationCap, Briefcase } from "lucide-react";
+import { useState } from "react";
+import { 
+  Lightbulb, Brain, Users, BarChart3, Settings, Globe, 
+  Banknote, MonitorCheck, MonitorX, GraduationCap, Briefcase 
+} from "lucide-react";
 
 const EXPERTISE = [
   { title: "Product & Innovation Hub", icon: Lightbulb },
-  { title: "Gen-AI Mastery", icon: BrainCircuit },
+  { title: "Gen-AI Mastery", icon: Brain },
   { title: "Leadership Elevation", icon: Users },
   { title: "Tech & Data Insights", icon: BarChart3 },
   { title: "Operations Excellence", icon: Settings },
   { title: "Digital Enterprise", icon: Globe },
-  { title: "Fintech Innovation Lab", icon: CircleDollarSign },
+  { title: "Fintech Innovation Lab", icon: Banknote },
 ];
 
 const SEGMENTS = [
@@ -60,38 +66,42 @@ export default function SpecializationsSection() {
           </div>
           <div className="flex md:hidden justify-center px-2">
             <Image
-              src="/images/accredian-edge-usp-v3.svg"
+              src="/images/accredian-edge-usp-mobile.svg"
               alt="Accredian Edge Process Mobile"
               width={1200}
-              height={400}
-              className="w-full h-auto scale-[1.1] sm:scale-100"
+              height={800}
+              className="w-full h-auto"
             />
           </div>
         </div>
       </section>
 
       {/* Our Domain Expertise */}
-      <section className="py-12 bg-white">
-        <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-[2.5rem] font-bold text-gray-900 mb-2">
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-[1.85rem] md:text-[2.5rem] font-bold text-gray-900 mb-1">
               Our <span className="text-[#1a73e8]">Domain Expertise</span>
             </h2>
-            <p className="text-gray-600 font-medium text-lg">
+            <p className="text-gray-500 font-medium text-base md:text-lg">
               <span className="text-[#1a73e8]">Specialized Programs</span> Designed to Fuel Innovation
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-5 max-w-[1050px] mx-auto">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-5 lg:gap-5 max-w-[1000px] mx-auto">
             {EXPERTISE.map((exp, i) => {
               const Icon = exp.icon;
               return (
                 <div
                   key={i}
-                  className="bg-white rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.08)] border border-gray-100 py-6 px-6 w-full sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-1.25rem)] flex flex-col items-center justify-center text-center transition-transform hover:-translate-y-1 hover:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.12)]"
+                  className="bg-white rounded-full lg:rounded-[0.85rem] shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-gray-200/60 py-2.5 lg:py-6 px-4 lg:px-8 flex flex-row lg:flex-col items-center justify-start lg:justify-center gap-2 lg:gap-4 transition-all hover:shadow-md w-[calc(50%-8px)] lg:w-[320px] min-h-[48px] lg:h-[150px]"
                 >
-                  <Icon size={42} strokeWidth={2.5} className="text-[#1a73e8] mb-4" />
-                  <h3 className="font-bold text-gray-900 text-base">{exp.title}</h3>
+                  <div className="text-[#1a73e8] shrink-0">
+                    <Icon className="w-6 h-6 lg:w-11 lg:h-11" strokeWidth={1.5} />
+                  </div>
+                  <h3 className="font-bold text-gray-900 text-sm lg:text-[1.1rem] leading-tight text-left lg:text-center">
+                    {exp.title}
+                  </h3>
                 </div>
               );
             })}
@@ -100,45 +110,21 @@ export default function SpecializationsSection() {
       </section>
 
       {/* Tailored Course Segmentation */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-[2.5rem] font-bold text-gray-900 mb-2">
-              Tailored <span className="text-[#1a73e8]">Course Segmentation</span>
-            </h2>
-            <p className="text-gray-600 font-medium text-lg">
-              Explore <span className="text-[#1a73e8]">Custom-fit Courses</span> Designed to Address Every Professional Focus
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SEGMENTS.map((seg, i) => (
-              <div key={i} className="bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col border border-gray-100/50">
-                <div className="relative h-48 w-full">
-                  <Image src={seg.img} alt={seg.title} fill className="object-cover" />
-                </div>
-                <div className="p-8 text-center flex-1 bg-white">
-                  <h3 className="text-[#1a73e8] font-bold text-xl mb-3">{seg.title}</h3>
-                  <p className="text-gray-600 text-[15px] leading-relaxed">{seg.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <CourseSegmentationSlider />
 
       {/* Who Should Join */}
-      <section className="bg-[#1a73e8] text-white pt-6 pb-0 overflow-hidden relative mt-16 mb-20 rounded-[1.5rem] mx-4 sm:mx-6 lg:mx-8 max-w-[1320px] xl:mx-auto shadow-lg">
-        <div className="max-w-[1250px] mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <section className="bg-[#1a73e8] text-white pt-10 lg:pt-16 pb-12 lg:pb-0 overflow-hidden relative mt-16 mb-20 rounded-[1.5rem] mx-4 sm:mx-6 lg:mx-8 max-w-[1320px] xl:mx-auto shadow-lg">
+        <div className="max-w-[1250px] mx-auto px-6 sm:px-10 relative">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-4">
-            <div className="lg:w-[58%] flex flex-col justify-between">
+            {/* Left Content (PC: Image + Title) */}
+            <div className="lg:w-[55%] flex flex-col justify-between">
               <div>
-                <p className="text-blue-100 text-xl font-medium mb-1">Who Should Join?</p>
-                <h2 className="text-4xl lg:text-[2.85rem] font-bold leading-tight mb-4 whitespace-nowrap">
+                <p className="text-white text-lg lg:text-xl font-medium mb-1">Who Should Join?</p>
+                <h2 className="text-[1.85rem] md:text-[2.5rem] lg:text-[2.85rem] font-bold leading-tight mb-4 whitespace-nowrap">
                   Strategic Skill Enhancement
                 </h2>
               </div>
-              <div className="relative h-[200px] sm:h-[300px] w-full mt-auto lg:-ml-12 overflow-visible">
+              <div className="hidden lg:block relative h-[350px] w-full mt-auto -ml-12 overflow-visible">
                 <Image
                   src="/images/imagehuman.png"
                   alt="Professionals"
@@ -148,47 +134,125 @@ export default function SpecializationsSection() {
               </div>
             </div>
 
-            <div className="lg:w-[42%] grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10 pt-4 pb-8">
-              <div className="flex flex-col">
-                <div className="mb-4">
-                  <MonitorCheck size={48} strokeWidth={1.5} className="text-white" />
+            {/* Right Content (PC: Grid | Mobile: List) */}
+            <div className="lg:w-[45%] flex flex-col gap-y-10 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-12 pt-4 pb-8 lg:pb-16">
+              <div className="flex flex-row lg:flex-col items-start gap-4 lg:gap-0">
+                <div className="lg:mb-4 shrink-0">
+                  <MonitorCheck strokeWidth={2} className="text-white w-8 h-8 lg:w-[42px] lg:h-[42px]" />
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Tech Professionals</h3>
-                <p className="text-blue-100 leading-relaxed text-[15.5px]">
-                  Enhance expertise, embrace tech, drive innovation.
-                </p>
+                <div>
+                  <h3 className="text-xl lg:text-2xl font-bold mb-1 lg:mb-3">Tech Professionals</h3>
+                  <p className="text-blue-50 leading-relaxed text-[15px] lg:text-[16px]">
+                    Enhance expertise, embrace tech, drive innovation.
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <div className="mb-4">
-                  <MonitorX size={48} strokeWidth={1.5} className="text-white" />
+
+              <div className="flex flex-row lg:flex-col items-start gap-4 lg:gap-0">
+                <div className="lg:mb-4 shrink-0">
+                  <MonitorX strokeWidth={2} className="text-white w-8 h-8 lg:w-[42px] lg:h-[42px]" />
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Non-Tech Professionals</h3>
-                <p className="text-blue-100 leading-relaxed text-[15.5px]">
-                  Adapt digitally, collaborate in tech environments.
-                </p>
+                <div>
+                  <h3 className="text-xl lg:text-2xl font-bold mb-1 lg:mb-3">Non-Tech Professionals</h3>
+                  <p className="text-blue-50 leading-relaxed text-[15px] lg:text-[16px]">
+                    Adapt digitally, collaborate in tech environments.
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <div className="mb-4">
-                  <GraduationCap size={48} strokeWidth={1.5} className="text-white" />
+
+              <div className="flex flex-row lg:flex-col items-start gap-4 lg:gap-0">
+                <div className="lg:mb-4 shrink-0">
+                  <GraduationCap strokeWidth={2} className="text-white w-8 h-8 lg:w-[42px] lg:h-[42px]" />
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Emerging Professionals</h3>
-                <p className="text-blue-100 leading-relaxed text-[15.5px]">
-                  Develop powerful skills for rapid career growth.
-                </p>
+                <div>
+                  <h3 className="text-xl lg:text-2xl font-bold mb-1 lg:mb-3">Emerging Professionals</h3>
+                  <p className="text-blue-50 leading-relaxed text-[15px] lg:text-[16px]">
+                    Develop powerful skills for rapid career growth.
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <div className="mb-4">
-                  <Briefcase size={48} strokeWidth={1.5} className="text-white" />
+
+              <div className="flex flex-row lg:flex-col items-start gap-4 lg:gap-0">
+                <div className="lg:mb-4 shrink-0">
+                  <Briefcase strokeWidth={2} className="text-white w-8 h-8 lg:w-[42px] lg:h-[42px]" />
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Senior Professionals</h3>
-                <p className="text-blue-100 leading-relaxed text-[15.5px]">
-                  Strengthen leadership, enhance strategic decisions.
-                </p>
+                <div>
+                  <h3 className="text-xl lg:text-2xl font-bold mb-1 lg:mb-3">Senior Professionals</h3>
+                  <p className="text-blue-50 leading-relaxed text-[15px] lg:text-[16px]">
+                    Strengthen leadership, enhance strategic decisions.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
     </>
+  );
+}
+
+function CourseSegmentationSlider() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  return (
+    <section className="py-12 md:py-20 bg-white overflow-hidden">
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-[1.75rem] md:text-[2.5rem] font-bold text-gray-900 mb-2">
+            Tailored <span className="text-[#1a73e8]">Course Segmentation</span>
+          </h2>
+          <p className="text-gray-500 font-medium text-base md:text-lg">
+            Explore <span className="text-[#1a73e8]">Custom-fit Courses</span> Designed to Address Every Professional Focus
+          </p>
+        </div>
+
+        {/* Desktop View: Grid */}
+        <div className="hidden lg:grid grid-cols-4 gap-6">
+          {SEGMENTS.map((seg, i) => (
+            <div key={i} className="bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col border border-gray-100/50 transition-transform hover:-translate-y-1">
+              <div className="relative h-48 w-full">
+                <Image src={seg.img} alt={seg.title} fill className="object-cover" />
+              </div>
+              <div className="p-8 text-center flex-1 bg-white">
+                <h3 className="text-[#1a73e8] font-bold text-xl mb-3">{seg.title}</h3>
+                <p className="text-gray-600 text-[14px] leading-relaxed">{seg.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Mobile View: Slider */}
+        <div className="lg:hidden mb-10">
+          <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
+            {SEGMENTS.map((seg, i) => (
+              <div key={i} className="w-full flex-shrink-0 px-4">
+                <div className="bg-white rounded-2xl shadow-[0_8px_30px_-10px_rgba(0,0,0,0.12)] overflow-hidden flex flex-col border border-gray-100/50 h-full">
+                  <div className="relative h-64 w-full">
+                    <Image src={seg.img} alt={seg.title} fill className="object-cover" />
+                  </div>
+                  <div className="p-10 text-center flex-1 bg-white">
+                    <h3 className="text-[#1a73e8] font-bold text-[22px] md:text-2xl">{seg.title}</h3>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pagination Dots */}
+        <div className="flex lg:hidden justify-center gap-3">
+          {SEGMENTS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className={`w-2.5 h-2.5 rounded-full shadow-sm transition-all duration-300 ${
+                activeIndex === i ? "bg-[#1a73e8]" : "bg-gray-200"
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

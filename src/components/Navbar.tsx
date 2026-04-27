@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Menu, X, Phone } from "lucide-react";
 import ContactModal from "./ContactModal";
@@ -105,44 +106,41 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-100 px-4 pb-4 pt-2 space-y-1">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollTo(item.id)}
-                className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeSection === item.id
-                    ? "bg-blue-50 text-blue-600"
-                    : "text-gray-700 hover:bg-gray-50"
-                }`}
+        {/* Mobile Navigation Menu (Floating Dropdown) */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <div className="lg:hidden fixed inset-0 z-[60]">
+              {/* Backdrop for closing */}
+              <div 
+                className="absolute inset-0 bg-black/5" 
+                onClick={() => setIsMenuOpen(false)}
+              />
+              
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                className="absolute top-[72px] right-4 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 py-4 overflow-hidden"
               >
-                {item.label}
-              </button>
-            ))}
-            <div className="pt-2 flex flex-col gap-2">
-              <button
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  setIsModalOpen(true);
-                }}
-                className="btn-outline w-full"
-              >
-                Contact Us
-              </button>
-              <button
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  setIsModalOpen(true);
-                }}
-                className="btn-primary w-full"
-              >
-                Get a Quote
-              </button>
+                <div className="flex flex-col">
+                  {NAV_ITEMS.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollTo(item.id)}
+                      className={`px-6 py-3.5 text-left text-[16px] font-medium transition-colors ${
+                        activeSection === item.id
+                          ? "text-[#1a73e8]"
+                          : "text-gray-900 hover:bg-gray-50"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
             </div>
-          </div>
-        )}
+          )}
+        </AnimatePresence>
       </nav>
 
       <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
