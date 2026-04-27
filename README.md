@@ -1,67 +1,79 @@
 # Accredian Enterprise Page Clone
 
-This is a clone of the [Accredian Enterprise](https://enterprise.accredian.com/) landing page, built for the Full Stack Developer Intern assignment.
+This project is a partial clone of the Accredian Enterprise landing page, built for a Full Stack Developer Intern assignment. The goal was to recreate the page with a focus on clean code and responsive design.
 
 ## 🚀 Links
-- **Live Site**: [View on Vercel](https://accredian-enterprise-clone.vercel.app/)
-- **GitHub**: [Source Code](https://github.com/your-username/accredian-enterprise)
+
+* **Live Site**: [https://accredian-clone-rouge.vercel.app/](https://accredian-clone-rouge.vercel.app/)
+* **GitHub Repository**: [https://github.com/Kidrah-kun/accredian_clone](https://github.com/Kidrah-kun/accredian_clone)
 
 ---
 
-## 🛠️ Built With
-- **Next.js**: For the website structure and fast page loading.
-- **Tailwind CSS**: For all the styling and making it look like the original.
-- **Framer Motion**: For the mobile sliders and small animations.
-- **Lucide React**: For the icons used in the sections.
+## 🛠️ Tech Stack
+
+* **Next.js (App Router)**: For the overall structure and fast page rendering.
+- **Tailwind CSS**: For all the styling and making the site responsive.
+- **Framer Motion**: For smooth mobile interactions and sliders.
+- **Lucide React**: For consistent, modern iconography.
 
 ---
 
-## ⚙️ How to Run Locally
+## ⚙️ Setup Instructions
 
-1. **Download the code**:
-   ```bash
-   git clone https://github.com/your-username/accredian-enterprise.git
-   cd accredian-enterprise
-   ```
+### 1. Clone the repository
+```bash
+git clone https://github.com/Kidrah-kun/accredian_clone.git
+cd accredian_clone
+```
 
-2. **Install tools**:
-   ```bash
-   npm install
-   ```
+### 2. Install dependencies
+```bash
+npm install
+```
 
-3. **Start the site**:
-   ```bash
-   npm run dev
-   ```
-
----
-
-## 🧠 My Approach
-
-1. **Component Based**: I broke the page into smaller parts (like Navbar, Hero, and Sections) to make the code easier to manage and read.
-2. **Mobile First**: I made sure the site looks good on phones first, especially the sliders for Testimonials and Course segments.
-3. **Exact Match**: I spent time matching the colors, spacing, and borders of the original Accredian site so it feels the same.
+### 3. Run the development server
+```bash
+npm run dev
+```
 
 ---
 
-## 🤖 How I used AI (Antigravity)
+## 🧠 Approach
 
-I used an AI tool called **Antigravity** to help speed up the development:
-- **Starting Sections**: It helped me quickly create the basic structure of the sections so I could focus on the details.
-- **Fixing Errors**: When I ran into code errors or build issues, the AI helped me find the cause and fix them quickly but sometimes i had to manually go through code to make it work.
-- **Mobile Logic**: It helped me write the logic for the swipeable sliders on mobile but it was not that great so i had to rewrite it and fine-tune the code to make it work properly.
-- **My Part**: I manually adjusted all the final colors, shadows, and thin borders to make sure they matched the original site perfectly.
-
----
-
-## 🔮 Future Ideas
-- **Connect Forms**: I would like to connect the "Contact Us" buttons to a real database like MongoDB.
-- **Better Speed**: Use more advanced image loading to make the site even faster.
-- **Admin Panel**: Build a simple page where someone can see all the people who filled out the contact forms.
+* **Component-Based**: I organized the UI into reusable components to keep the code clean and easy to maintain.
+* **Mobile-First**: I ensured the site is fully responsive, with a focus on custom mobile sliders for Testimonials and Course Segments.
+* **Visual Parity**: I paid close attention to the original site's spacing, colors, and thin borders to ensure a consistent look.
+* **Modern React**: Used functional components and hooks to handle state and interactions effectively.
 
 ---
 
-**Submitted by**: Hardik Hathwal
-contact me -> https://www.hardikhathwal.dev/
-email -> hardikhathwal.work@gmail.com
+## 🤖 AI Usage
 
+As specified in the assignment, I used **Antigravity** and **Claude** to help streamline development.
+
+### Where AI Helped
+* **Initial Layout**: Helped generate the base structure of several sections.
+* **Troubleshooting**: Assisted in fixing build errors and dependency issues.
+* **Drafting Logic**: Helped outline the basic swipe logic for mobile sliders.
+
+### Manual Refinements
+* **Code Optimization**: I refactored the AI-generated components to make the logic more readable.
+* **Interaction Polish**: I manually adjusted the swipe sensitivity and directions to ensure a smooth "gallery" feel.
+* **UI Fine-Tuning**: I spent significant time manually adjusting colors, shadows, and spacing to match the reference site 1:1.
+
+---
+
+## 📦 Features
+- Fully responsive (works on all screen sizes)
+- Navigation bar and Footer
+- Clean, organized folder structure
+- Smooth section-based navigation
+
+---
+
+## 👤 Author
+
+**Hardik Hathwal**  
+[Portfolio](https://www.hardikhathwal.dev/) | [Email](mailto:hardikhathwal.work@gmail.com)
+
+---
