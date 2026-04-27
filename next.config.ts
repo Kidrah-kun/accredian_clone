@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         hostname: "storage.googleapis.com",
         pathname: "/accredian-assets/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
 };

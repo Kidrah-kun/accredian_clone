@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Headset } from "lucide-react";
-import ContactModal from "./ContactModal";
+import LeadCaptureModal from "./LeadCaptureModal";
 
 export default function Footer() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -145,7 +145,7 @@ export default function Footer() {
       </footer>
 
 
-      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <LeadCaptureModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }

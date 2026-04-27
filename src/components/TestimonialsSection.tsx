@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import LeadCaptureModal from "./LeadCaptureModal";
 
 const TESTIMONIALS = [
   {
@@ -24,6 +25,7 @@ const TESTIMONIALS = [
 
 export default function TestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDragEnd = (event: any, info: any) => {
     const swipeThreshold = 50;
@@ -39,7 +41,10 @@ export default function TestimonialsSection() {
       <div className="max-w-[1320px] mx-auto px-6">
         {/* Enquire Now Button */}
         <div className="flex justify-center mb-16 md:mb-20">
-          <button className="bg-[#1a73e8] text-white px-10 py-3.5 rounded-lg font-bold text-lg shadow-[0_8px_25px_rgba(26,115,232,0.3)] transition-transform hover:scale-105">
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="bg-[#1a73e8] text-white px-10 py-3.5 rounded-lg font-bold text-lg shadow-[0_8px_25px_rgba(26,115,232,0.39)] transition-transform hover:scale-105"
+          >
             Enquire Now
           </button>
         </div>
@@ -109,6 +114,7 @@ export default function TestimonialsSection() {
           </div>
         </div>
       </div>
+      <LeadCaptureModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }

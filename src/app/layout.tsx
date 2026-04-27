@@ -9,11 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Accredian Enterprise | Corporate Training & Learning Solutions",
-  description:
-    "Accredian Enterprise offers industry-specific, customizable corporate training programs in Leadership, AI, Data, Fintech, and more. Upskill your workforce today.",
-  keywords:
-    "corporate training, enterprise learning, upskilling, Accredian, leadership development, AI training",
+  title: "Accredian Enterprise | Upskilling Programs for Industry Leaders",
+  description: "Reimagine your workforce with Accredian Enterprise. Explore our custom-fit upskilling programs designed for operations excellence, digital transformation, and leadership.",
+  keywords: ["Upskilling", "Enterprise Training", "Digital Transformation", "Accredian", "Executive Education"],
   openGraph: {
     title: "Accredian Enterprise | Corporate Training & Learning Solutions",
     description:

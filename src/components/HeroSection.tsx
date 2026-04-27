@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
-import ContactModal from "./ContactModal";
+import LeadCaptureModal from "./LeadCaptureModal";
 
 export default function HeroSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,6 +63,7 @@ export default function HeroSection() {
                   fill
                   className="object-contain object-bottom md:object-right-bottom scale-100 md:scale-100 origin-bottom md:origin-bottom-right"
                   priority
+                  loading="eager"
                 />
               </div>
             </div>
@@ -70,10 +71,9 @@ export default function HeroSection() {
         </div>
       </section>
 
-      <ContactModal
+      <LeadCaptureModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Get a Free Consultation"
       />
     </>
   );

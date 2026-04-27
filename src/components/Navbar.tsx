@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Menu, X, Phone } from "lucide-react";
-import ContactModal from "./ContactModal";
+import LeadCaptureModal from "./LeadCaptureModal";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -136,14 +136,22 @@ export default function Navbar() {
                       {item.label}
                     </button>
                   ))}
+                  <button 
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      setIsMenuOpen(false);
+                    }}
+                    className="mx-6 mt-2 bg-[#1a73e8] text-white py-3 rounded-lg font-bold transition-all"
+                  >
+                    Contact Us
+                  </button>
                 </div>
               </motion.div>
             </div>
           )}
         </AnimatePresence>
+        <LeadCaptureModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </nav>
-
-      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }
