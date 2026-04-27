@@ -71,32 +71,29 @@ export default function TestimonialsSection() {
           ))}
         </div>
 
-        {/* Mobile View: Slider */}
-        <div className="lg:hidden relative min-h-[350px]">
-          <div className="overflow-hidden px-2">
+        {/* Mobile View: Controlled Paged Slider */}
+        <div className="lg:hidden relative min-h-[350px] px-4">
+          <AnimatePresence mode="wait">
             <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
+              dragElastic={0.5}
               onDragEnd={handleDragEnd}
-              animate={{ x: `-${activeIndex * 100}%` }}
-              transition={{ type: "spring", damping: 30, stiffness: 150 }}
-              className="flex cursor-grab active:cursor-grabbing"
+              className="bg-white rounded-[2rem] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.04)] p-8 md:p-10 flex flex-col min-h-[300px] touch-pan-y"
             >
-              {TESTIMONIALS.map((t) => (
-                <div key={t.id} className="w-full flex-shrink-0 px-4">
-                  <div className="bg-white rounded-[2rem] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.04)] p-8 md:p-10 flex flex-col min-h-[300px]">
-                    <div className="w-14 h-14 rounded-full border border-gray-100 flex items-center justify-center p-3 mb-6 shadow-sm">
-                      <img src={t.logo} alt="Partner Logo" className="w-full h-full object-contain" />
-                    </div>
-                    <p className="text-gray-700 text-[1.05rem] md:text-lg leading-relaxed">
-                      "{t.quote}"
-                    </p>
-                  </div>
-                </div>
-              ))}
+              <div className="w-14 h-14 rounded-full border border-gray-100 flex items-center justify-center p-3 mb-6 shadow-sm">
+                <img src={TESTIMONIALS[activeIndex].logo} alt="Partner Logo" className="w-full h-full object-contain" />
+              </div>
+              <p className="text-gray-700 text-[1.05rem] md:text-lg leading-relaxed italic">
+                "{TESTIMONIALS[activeIndex].quote}"
+              </p>
             </motion.div>
-          </div>
+          </AnimatePresence>
 
           {/* Pagination Dots */}
           <div className="flex justify-center gap-2 mt-10">

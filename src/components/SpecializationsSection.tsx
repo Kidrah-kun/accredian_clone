@@ -236,36 +236,37 @@ function CourseSegmentationSlider() {
           ))}
         </div>
 
-        {/* Mobile View: Continuous Snap Slider (1:1 Parity) */}
-        <div className="lg:hidden mb-10 overflow-hidden">
-          <motion.div
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.6}
-            onDragEnd={handleDragEnd}
-            animate={{ x: `-${activeIndex * 100}%` }}
-            transition={{ type: "spring", damping: 30, stiffness: 150 }}
-            className="flex cursor-grab active:cursor-grabbing touch-pan-y" 
-          >
-            {SEGMENTS.map((seg, i) => (
-              <div key={i} className="w-full flex-shrink-0 px-8">
-                <div className="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col border border-gray-100/50 h-full">
-                  <div className="relative h-60 w-full">
-                    <Image 
-                      src={seg.img} 
-                      alt={seg.title} 
-                      fill 
-                      className="object-cover" 
-                      priority={i === 0} 
-                    />
-                  </div>
-                  <div className="py-8 px-4 text-center bg-white">
-                    <h3 className="text-[#1a73e8] font-bold text-2xl tracking-wide">{seg.title}</h3>
-                  </div>
+        {/* Mobile View: Controlled Paged Slider (1:1 Parity) */}
+        <div className="lg:hidden mb-10 px-4 relative min-h-[400px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.5}
+              onDragEnd={handleDragEnd}
+              className="absolute inset-x-4 cursor-grab active:cursor-grabbing touch-pan-y"
+            >
+              <div className="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col border border-gray-100/50 h-full">
+                <div className="relative h-60 w-full">
+                  <Image 
+                    src={SEGMENTS[activeIndex].img} 
+                    alt={SEGMENTS[activeIndex].title} 
+                    fill 
+                    className="object-cover" 
+                    priority
+                  />
+                </div>
+                <div className="py-8 px-4 text-center bg-white">
+                  <h3 className="text-[#1a73e8] font-bold text-2xl tracking-wide">{SEGMENTS[activeIndex].title}</h3>
                 </div>
               </div>
-            ))}
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Pagination Dots */}
